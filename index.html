@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gunting Kertas Batu</title>
+    <style>
+        :root {
+            box-sizing: border-box;
+        }
+
+        html, 
+        body,
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .app {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        .summary {
+            margin: 0 auto;
+            border: 3px solid blanchedalmond;  
+            width: 90%;
+            max-width: 400px;
+            height: auto;
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .games {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .option {
+            width: 25%;
+            margin: 10px 15px; 
+            padding: 25px;
+            text-align: center;
+            font-size: 40px;
+            background-color: bisque;
+            border-radius: 5px;
+            transition: transform 0.2s cubic-bezier(0.215, 0.61, 0.335, 1), background-color 0.2s;
+        }
+
+        .option:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+            background-color: burlywood;
+        }
+
+        @media (max-width: 768px) {
+            .option {
+                width: 30%;
+                font-size: 30px;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .option {
+                width: 40%;
+                font-size: 25px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="app">
+        <div class="summary">  
+            <h1 class="title">Match Result</h1>
+            <h1 class="result"></h1>
+            <h2 class="ingame"></h2>    
+        </div>
+        <div class="games">
+            <div class="option" onclick="pickOption('✌')">✌</div>
+            <div class="option" onclick="pickOption('🖐')">🖐</div>
+            <div class="option" onclick="pickOption('✊')">✊</div>
+        </div>
+    </div>
+
+    <script>
+        class Start {
+            constructor() {
+                this.playerName = "Kamu";
+                this.botName = "Bot";
+                this.playerOption = null;
+                this.botOption = null;
+                this.winner = "";
+            }
+            
+            get getBotOption() {
+                return this.botOption;
+            }
+
+            set setBotOption(option) {
+                this.botOption = option;
+            }
+
+            get getPlayerOption() {
+                return this.playerOption;
+            }
+        
+            set setPlayerOption(option) {
+                this.playerOption = option;
+            }
+
+            botBrain() {
+                const options = ["✌", "🖐", "✊"];
+                this.botOption = options[Math.floor(Math.random() * options.length)];
+            }
+
+            determineWinner() {
+                if (this.playerOption === this.botOption) {
+                    this.winner = "Seri";
+                } else if (
+                    (this.playerOption === "✌" && this.botOption === "🖐") ||
+                    (this.playerOption === "🖐" && this.botOption === "✊") ||
+                    (this.playerOption === "✊" && this.botOption === "✌")
+                ) {
+                    this.winner = this.playerName + " menang!";
+                } else {
+                    this.winner = this.botName + " menang!";
+                }
+            }
+
+            displayResult() {
+                const resultText = `Bot memilih: ${this.botOption}, ${this.winner}`;
+                document.querySelector('.result').textContent = resultText;
+                document.querySelector('.ingame').textContent = `Kamu memilih: ${this.playerOption}`;
+            }
+        }
+        
+        function pickOption(option) {
+            const start = new Start();
+            start.setPlayerOption = option;
+            start.botBrain();
+            start.determineWinner();
+            start.displayResult();
+            console.log("Bot memilih: ", start.botOption);
+            console.log("Player memilih: ", start.playerOption);
+            console.log("Pemenang: ", start.winner);
+        }
+    </script>
+</body>
+</html>
+

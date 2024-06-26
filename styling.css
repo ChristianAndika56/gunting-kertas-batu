@@ -1,0 +1,45 @@
+:root {
+    box-sizing: border-box;
+}
+
+html, 
+body,
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.app {
+    height: 100vh;
+}
+
+.summary {
+    margin: 0 auto;
+    border: 3px solid blanchedalmond;  
+    width: 400px;
+    height: 400px;
+    text-align: center;
+}
+
+.games {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+}
+
+.option {
+    width: 25%;
+    margin: 10px 15px; /* Perbaikan margin */
+    padding: 25px;
+    text-align: center;
+    font-size: 40px;
+    background-color: bisque;
+}
+
+.option:hover {
+    cursor: pointer;
+    transform: scale(110%);
+    transition: transform 0.2s cubic-bezier(0.215, 0.61, 0.335, 1); /* Perbaikan transisi */
+    background-color: burlywood;
+}
